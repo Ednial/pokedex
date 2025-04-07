@@ -1,8 +1,29 @@
+import { Route, Routes } from 'react-router';
+import Home from '../app/home/Home';
+import Pokedex from '../app/pokedex/Pokedex';
+import Protected from './Protected';
+import MainLayout from '../layout/MainLayout';
+import Details from '../app/details/Details';
+
 function App() {
 	return (
-		<div>
-			<h1 className="text-7xl">App</h1>
-		</div>
+		<Routes>
+			<Route path="/" element={<Home />} />
+
+			<Route
+				path="/pokedex"
+				element={
+					<Protected>
+						<MainLayout />
+					</Protected>
+				}
+			>
+				<Route index element={<Pokedex />} />
+				<Route path=":name" element={<Details />} />
+			</Route>
+
+			<Route path="*" element={<h1>404 Not Found!</h1>} />
+		</Routes>
 	);
 }
 
